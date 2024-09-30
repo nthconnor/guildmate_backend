@@ -2,15 +2,19 @@ import express from "express"
 import dotenv from "dotenv"
 
 import authRoutes from "./routes/authRoutes.js"
+import guildRoutes from "./routes/guildRoutes.js"
 import connectToMongo from "./models/index.js"
+import cookieParser from "cookie-parser"
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cookieParser());
 app.use(express.json());
 app.use('/api/auth', authRoutes)
+app.use('/api/guilds', guildRoutes)
 
 
 connectToMongo();

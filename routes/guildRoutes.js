@@ -1,8 +1,9 @@
 import express from "express";
-import jwt from "jsonwebtoken"
-import crypto from "crypto"
-
-import Guild from "../models/Guild.js";
-import User from "../models/User.js";
+import { createGuild } from "../controllers/guildController.js";
+import { authenticateJWT } from "../middleware/auth.js";
 
 const router = express.Router();
+
+router.post('/create', authenticateJWT, createGuild)
+
+export default router;
