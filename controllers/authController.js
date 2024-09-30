@@ -20,11 +20,13 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    const defaultAvatar = `https://avatar.iran.liara.run/username?username=${username}`
+
     const newUser = new User({
       displayName,
       username,
       password: hashedPassword,
-      avatar,
+      avatar: defaultAvatar
     });
 
     if (newUser) {
@@ -69,10 +71,16 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log("error in login controller", error.message);
-    res.status(500).json({ error: "Internal server rror" });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 export const logout = (req, res) => {
-  res.send("logout route");
+  try {
+    res.cookie("jwt", "", { maxAge: 0 });
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (error) {
+    console.log("error in logout controller", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
