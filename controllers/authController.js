@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import User from "../models/userModel.js";
+import User from "../models/User.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 
 export const signup = async (req, res) => {
@@ -20,13 +20,13 @@ export const signup = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const defaultAvatar = `https://avatar.iran.liara.run/username?username=${username}`
+    const defaultAvatar = `https://avatar.iran.liara.run/username?username=${username}`;
 
     const newUser = new User({
       displayName,
       username,
       password: hashedPassword,
-      avatar: defaultAvatar
+      avatar: defaultAvatar,
     });
 
     if (newUser) {
