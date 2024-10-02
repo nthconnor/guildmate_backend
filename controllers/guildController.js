@@ -2,11 +2,13 @@ import Guild from "../models/Guild.js";
 
 export const createGuild = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, description = '', tags = [] } = req.body;
     const ownerId = req.userId;
 
     const newGuild = new Guild({
       name,
+      description,
+      tags,
       owner: ownerId,
       members: [ownerId],
     });
