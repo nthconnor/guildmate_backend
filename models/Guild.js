@@ -5,10 +5,20 @@ const GuildSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+  },
+  logo: {
+    type: String,
+    default: "",
+  },
+  tags: {
+    type: [String]
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    reuired: true,
+    required: true,
   },
   createdAt: {
     type: Date,
@@ -33,11 +43,11 @@ const GuildSchema = new mongoose.Schema({
       createdAt: {
         type: Date,
         default: Date.now,
-        expires: "1d", // can change
+        expires: "1d", // can change ?
       },
     },
   ],
-});
+}, { timestamps: true });
 
 const Guild = mongoose.model("Guild", GuildSchema);
 export default Guild;
