@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors({
-    origin: 'https://guildmate.netlify.app/',
+    origin: 'https://guildmate.netlify.app/api',
     credentials: true,
 }))
 app.use(cookieParser());
