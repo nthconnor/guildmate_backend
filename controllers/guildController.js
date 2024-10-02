@@ -29,12 +29,49 @@ export const createGuild = async (req, res) => {
   }
 };
 
+export const updateGuild = async (req, res) => {
+  try {
+    const guildId = req.params.id;
+    const { name, description, tags, logo } = req.body;
+
+    const updatedGuild = await Guild.findByIdAndUpdate(
+      guild,
+      Id,
+      { name, description, tags, logo },
+      { new: true }
+    );
+
+    if (!updatedGuild) {
+      return res.status(404).json({ error: "Guild not found" });
+    }
+    res.json({ message: "Guild updated", guild: updatedGuild });
+  } catch (error) {
+    console.error("Error updating:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export const deleteGuild = async (req, res) => {
+  try {
+    const guildId = req.params.id;
+
+    const deletedGuild = await Guild.findByIdAndDelete(guildId);
+
+    if (!deletedGuild) {
+      return res.status(404).json({ error: "Guild not found" });
+    }
+
+    res.json({ message: "Guild deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting guild:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 export const getGuildById = async (req, res) => {
   try {
     const guildId = req.params.id;
-    const guild = await Guild.findById(guildId).populate(
-      "owner members"
-    );
+    const guild = await Guild.findById(guildId).populate("owner members");
 
     if (!guild) {
       return res.status(404).json({ error: "Guild not found" });
