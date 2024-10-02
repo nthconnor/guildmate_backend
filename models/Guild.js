@@ -38,7 +38,7 @@ const GuildSchema = new mongoose.Schema({
       },
       token: {
         type: String,
-        unique: true,
+        // unique: true,
       },
       createdAt: {
         type: Date,
