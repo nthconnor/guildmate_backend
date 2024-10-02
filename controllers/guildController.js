@@ -35,8 +35,7 @@ export const updateGuild = async (req, res) => {
     const { name, description, tags, logo } = req.body;
 
     const updatedGuild = await Guild.findByIdAndUpdate(
-      guild,
-      Id,
+      guildId,
       { name, description, tags, logo },
       { new: true }
     );
