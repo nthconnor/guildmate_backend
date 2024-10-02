@@ -5,6 +5,6 @@ import { authenticateJWT } from "../middleware/auth.js";
 const router = express.Router();
 
 router.post('/create', authenticateJWT, createGuild)
-router.get('/users/:id', authenticateJWT, getUserGuilds)
+router.get('/users/:id', authenticateJWT, getUserGuilds) // maybe move to user routes
 
 export default router;
